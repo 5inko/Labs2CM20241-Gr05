@@ -10,10 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
 import com.example.jetsnack.ui.SnackViewModel
 import com.example.jetsnack.ui.theme.JetsnackTheme
-import okhttp3.internal.wait
 
 @Composable
 fun LoginScreen(viewModel: SnackViewModel) {
@@ -41,7 +41,7 @@ fun LoginScreen(viewModel: SnackViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(JetsnackTheme.colors.brandSecondary),
+            .background(JetsnackTheme.colors.uiBackground),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -49,32 +49,46 @@ fun LoginScreen(viewModel: SnackViewModel) {
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = "App logo",
             modifier = Modifier
-                .background(JetsnackTheme.colors.textPrimary)
+                .padding(16.dp)
         )
 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Email", color = JetsnackTheme.colors.textPrimary) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             singleLine = true,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next
+            ),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = JetsnackTheme.colors.brand,
+                unfocusedBorderColor = JetsnackTheme.colors.uiBorder,
+                cursorColor = JetsnackTheme.colors.brand
             )
         )
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth(),
+            label = { Text("Password", color = JetsnackTheme.colors.textPrimary) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done
+            ),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = JetsnackTheme.colors.brand,
+                unfocusedBorderColor = JetsnackTheme.colors.uiBorder,
+                cursorColor = JetsnackTheme.colors.brand
             )
         )
         Button(
@@ -83,11 +97,14 @@ fun LoginScreen(viewModel: SnackViewModel) {
                     Toast.makeText(context, "Invalid email or password", Toast.LENGTH_SHORT).show()
                 }
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = JetsnackTheme.colors.brand)
         ) {
             Text(
                 text = "Login",
-                color = Color.White
+                color = JetsnackTheme.colors.textInteractive
             )
         }
     }

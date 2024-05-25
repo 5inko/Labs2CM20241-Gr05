@@ -21,7 +21,7 @@ interface AppContainer {
 }
 
 class DefaultAppContainer: AppContainer {
-    private val baseUrl: String = "https://demo2722019.mockable.io/"
+    private val baseUrl: String = "https://demo9319356.mockable.io/"
 
     private fun getUnsafeOkHttpClient(): OkHttpClient {
         return try {
